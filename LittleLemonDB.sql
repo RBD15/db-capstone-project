@@ -66,6 +66,18 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
+-- Table `LittleLemonDB`.`menuitem`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`menuitem` (
+  `MenuItemID` INT NOT NULL,
+  `CourseName` VARCHAR(45) NOT NULL,
+  `StarterName` VARCHAR(45) NOT NULL,
+  `DesertName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`MenuItemID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `LittleLemonDB`.`menu`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`menu` (
@@ -73,7 +85,14 @@ CREATE TABLE IF NOT EXISTS `LittleLemonDB`.`menu` (
   `MenuName` VARCHAR(45) NOT NULL,
   `MenuPrice` DECIMAL(10,0) NOT NULL,
   `MenuDescription` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`MenuID`))
+  `MenuItemID` INT NOT NULL,
+  PRIMARY KEY (`MenuID`),
+  INDEX `fk_menuitem_id_idx` (`MenuItemID` ASC) VISIBLE,
+  CONSTRAINT `fk_menuitem_id`
+    FOREIGN KEY (`MenuItemID`)
+    REFERENCES `LittleLemonDB`.`menuitem` (`MenuItemID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
